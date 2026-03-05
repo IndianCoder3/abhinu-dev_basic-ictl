@@ -1,0 +1,14 @@
+Program.Main {
+    Variables.New(TestFloat)
+    Variables.New(TestNegative)
+    
+    Variables.TestFloat = Math.Eval(3.14 + 2.86)
+    Terminal.Echo("Float test: 3.14 + 2.86 = " + Variables.TestFloat)
+    
+    Variables.TestNegative = Math.Eval(-5 + 10)
+    Terminal.Echo("Negative test: -5 + 10 = " + Variables.TestNegative)
+    
+    Program.If(Math.Compare(-10, "<", 0)) {
+        Terminal.Echo("Negative number comparison works: -10 < 0")
+    }
+}

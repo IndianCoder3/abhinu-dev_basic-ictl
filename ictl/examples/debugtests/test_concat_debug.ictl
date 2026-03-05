@@ -1,0 +1,10 @@
+Program.Main {
+    Variables.New(Name)
+    Variables.Name = Terminal.Ask("Welcome to Abhinu.Dev Basic v1.0 String concatenation testing! What's your name? ")
+    Variables.ValueTest = 2
+    
+    Terminal.Echo("Test 1: " + Variables.Name)
+    Terminal.Echo("Test 2: " + Variables.Name + " is here")
+    Terminal.Echo("Simple string")
+    Terminal.Echo("Test 3 - Should be 24: " + Math.Eval(Variables.ValueTest + 2 * 10 + 2) + ". Hey " + Variables.Name + ", if it's 24, you are golden!")
+}

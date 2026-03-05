@@ -1,0 +1,301 @@
+========================================================================
+ABHINU.DEV BASIC ICTL - INTERPRETER COMMAND REFERENCE
+========================================================================
+
+COMPLETE LIST OF ALL SUPPORTED COMMANDS AND FEATURES:
+
+1. TERMINAL COMMANDS
+============================
+
+Terminal.Echo(<expression>)
+  - Output text to console
+  - Parameters: Any expression (string, variable, math result)
+  - Example: Terminal.Echo("Hello, World!")
+  - Example: Terminal.Echo("Count: " + Variables.X)
+
+Terminal.Ask(<prompt>)
+  - Get user input from console
+  - Parameters: A string prompt
+  - Returns: User input as string
+  - Example: Variables.Name = Terminal.Ask("Enter your name: ")
+
+Terminal.Style(<style_name>)
+  - Set terminal output color/style
+  - Available styles:
+    * "red" - Red text
+    * "green" - Green text
+    * "blue" - Blue text
+    * "yellow" - Yellow text
+    * "cyan" - Cyan text
+    * "magenta" - Magenta text
+    * "bold" - Bold text
+    * "reset" - Reset to default
+  - Example: Terminal.Style("green")
+
+
+2. VARIABLE COMMANDS
+============================
+
+Variables.New(<variable_name>)
+  - Create/declare a new variable
+  - Parameters: Unquoted identifier name
+  - Example: Variables.New(MyVar)
+
+Variables.<variable_name> = <expression>
+  - Assign value to variable
+  - Can assign: strings, numbers, math results, user input
+  - Example: Variables.Counter = 42
+  - Example: Variables.Name = "Alice"
+  - Example: Variables.Result = Math.Eval(10 + 5)
+  - Example: Variables.Input = Terminal.Ask("Enter value: ")
+
+Variables.<variable_name>
+  - Reference/read variable value
+  - Use in string concatenation or expressions
+  - Example: Terminal.Echo(Variables.Counter)
+  - Example: Terminal.Echo("Hello " + Variables.Name)
+
+
+3. MATH OPERATIONS
+============================
+
+Math.Eval(<arithmetic_expression>)
+  - Evaluate mathematical expressions
+  - Supported operators: +, -, *, /, ( )
+  - Supports: integers, floats, negative numbers
+  - Example: Math.Eval(10 + 5)
+  - Example: Math.Eval((2 + 3) * 4)
+  - Example: Math.Eval(3.5 + 2.5)
+  - Example: Math.Eval(-10 + 5)
+  - Example: Math.Eval(Variables.X * 2)
+
+Math.Compare(<value_a>, <operator>, <value_b>)
+  - Compare two numeric values
+  - Returns: Boolean (true/false)
+  - Operators: ">", "<", ">=", "<=", "==", "!="
+  - Example: Math.Compare(10, ">", 5)
+  - Example: Math.Compare(Variables.X, "<=", 100)
+
+
+4. DATA COMPARISON
+============================
+
+Data.Compare(<value_a>, <value_b>)
+  - Compare two values for equality (string or number)
+  - Returns: Boolean (true/false)
+  - Compares as strings
+  - Example: Data.Compare("hello", "hello")
+  - Example: Data.Compare(Variables.Input, "yes")
+
+
+5. CONTROL FLOW - CONDITIONALS
+============================
+
+Program.If(<condition>) { ... }
+  - Execute block if condition is true
+  - Condition can be:
+    * Data.Compare(...)
+    * Math.Compare(...)
+    * Boolean literal (True/False)
+    * Result of any comparison
+  - Example:
+    Program.If(Math.Compare(X, ">", 5)) {
+        Terminal.Echo("X is greater than 5")
+    }
+  - Supports nesting:
+    Program.If(condition1) {
+        Program.If(condition2) {
+            ...
+        }
+    }
+
+
+6. LOOPS - COUNTED LOOP
+============================
+
+Program.Loop(<count>) { ... }
+  - Execute block N number of times
+  - Parameter: Integer count
+  - Example:
+    Program.Loop(5) {
+        Terminal.Echo("iteration")
+    }
+  - Supports loop control (Break/Continue) inside
+
+
+7. LOOPS - INFINITE LOOP
+============================
+
+Program.ForeverLoop { ... }
+  - Execute block infinitely until break
+  - Must include Program.BreakLoop to exit
+  - Example:
+    Program.ForeverLoop {
+        Variables.Counter = Math.Eval(Variables.Counter + 1)
+        Program.If(Math.Compare(Variables.Counter, ">", 10)) {
+            Program.BreakLoop
+        }
+    }
+
+
+8. LOOP CONTROL STATEMENTS
+============================
+
+Program.BreakLoop
+  - Exit current loop immediately
+  - Use inside Program.Loop or Program.ForeverLoop
+  - Example:
+    Program.ForeverLoop {
+        ...
+        Program.BreakLoop
+    }
+
+Program.Continue
+  - Skip to next loop iteration
+  - Use inside Program.Loop or Program.ForeverLoop
+  - Example:
+    Program.Loop(10) {
+        Program.If(Data.Compare(i, 5)) {
+            Program.Continue
+        }
+        Terminal.Echo(i)
+    }
+
+
+9. MAIN PROGRAM BLOCK
+============================
+
+Program.Main { ... }
+  - Main entry point of program
+  - All code must be inside Program.Main block
+  - Program execution starts here
+  - Example:
+    Program.Main {
+        Terminal.Echo("Hello!")
+    }
+
+
+10. DATA TYPES
+============================
+
+String Literals
+  - Enclosed in double quotes: "text"
+  - Example: "Hello World"
+  - Example: "42"
+
+Integer Literals
+  - Whole numbers with optional negative sign
+  - Example: 42
+  - Example: -5
+  - Example: 0
+
+Float Literals
+  - Decimal numbers with optional negative sign
+  - Example: 3.14
+  - Example: -2.5
+  - Example: 0.0
+
+Boolean Literals
+  - True (capitalized)
+  - False (capitalized)
+  - Example: Program.If(True) { ... }
+
+
+11. OPERATORS
+============================
+
+String Concatenation
+  - Operator: +
+  - Joins strings and values together
+  - Example: "Hello" + Variables.Name
+  - Example: "Sum: " + Math.Eval(5 + 3)
+
+Mathematical Operators
+  - Addition: +
+  - Subtraction: -
+  - Multiplication: *
+  - Division: /
+  - Grouping: ( )
+  - Used inside Math.Eval()
+
+Comparison Operators (in Math.Compare)
+  - Greater than: ">"
+  - Less than: "<"
+  - Greater or equal: ">="
+  - Less or equal: "<="
+  - Equal: "=="
+  - Not equal: "!="
+
+
+12. COMMENTS
+============================
+
+Single-line comments
+  - Start with # or //
+  - Example: # This is a comment
+  - Example: // This is also a comment
+
+
+13. SCOPE RULES
+============================
+
+- Variables are global (accessible anywhere after declaration)
+- Variables persist across all blocks and loops
+- Functions/blocks create new execution context but share variable scope
+- Loop variables persist after loop ends
+
+
+14. EXAMPLE PROGRAM
+============================
+
+Program.Main {
+    # Declare variables
+    Variables.New(Name)
+    Variables.New(Age)
+    
+    # Get user input
+    Variables.Name = Terminal.Ask("What's your name? ")
+    Variables.Age = Terminal.Ask("What's your age? ")
+    
+    # Process with math
+    Variables.New(NextAge)
+    Variables.NextAge = Math.Eval(Variables.Age + 1)
+    
+    # Output with conditionals
+    Terminal.Echo("Hello, " + Variables.Name + "!")
+    
+    Program.If(Math.Compare(Variables.Age, ">", 18)) {
+        Terminal.Echo("You are an adult!")
+    }
+    
+    Terminal.Echo("Next year you'll be " + Variables.NextAge)
+    
+    # Loops
+    Program.Loop(3) {
+        Terminal.Echo("Counting!")
+    }
+}
+
+
+========================================================================
+MEGATEST FILE
+========================================================================
+
+A comprehensive test file (megatest.ictl) is included that tests every
+feature of the interpreter across 11 sections with 42+ individual tests:
+
+1. Terminal Commands (Echo, Style)
+2. Variables (New, Assignment, Access)
+3. String Operations (Concatenation)
+4. Math Operations (Eval)
+5. Comparison Operations (Data.Compare, Math.Compare)
+6. Control Flow (If statements, Nesting)
+7. Loops - Counted (Program.Loop)
+8. Loops - Forever with Break
+9. Loop Control (Continue)
+10. Complex Expressions (Combined operations)
+11. Boolean Literals
+
+Run with: python main.py megatest.ictl
+
+========================================================================

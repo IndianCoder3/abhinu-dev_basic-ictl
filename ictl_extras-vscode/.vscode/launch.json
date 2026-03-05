@@ -1,0 +1,35 @@
+{
+  "name": "abhinu-dev-basic-ictl",
+  "displayName": "Abhinu.Dev Basic ICTL",
+  "description": "ICTL language support with shell, file execution, and syntax coloring!",
+  "version": "1.0.0",
+  "publisher": "IndianCoder3",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["Programming Languages"],
+  "activationEvents": ["onCommand:ictl.runFile"],
+  "main": "./extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "ictl",
+        "aliases": ["ICTL", "ICTL Language", "ICTL Basic"],
+        "extensions": [".ictl"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "ictl.runFile",
+        "title": "Run ICTL File"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "vsce package"
+  },
+  "devDependencies": {
+    "vsce": "^2.12.0"
+  }
+}

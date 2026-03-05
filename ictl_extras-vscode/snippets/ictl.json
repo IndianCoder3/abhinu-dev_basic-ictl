@@ -1,0 +1,127 @@
+{
+  "Main Program": {
+    "prefix": "main",
+    "body": [
+      "Program.Main {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Main program block"
+  },
+  "Echo Statement": {
+    "prefix": "echo",
+    "body": "Terminal.Echo($1)",
+    "description": "Print output to terminal"
+  },
+  "Ask Input": {
+    "prefix": "ask",
+    "body": "Terminal.Ask(\"$1\")",
+    "description": "Get user input"
+  },
+  "New Variable": {
+    "prefix": "var",
+    "body": "Variables.New($1)",
+    "description": "Declare a new variable"
+  },
+  "Variable Assignment": {
+    "prefix": "assign",
+    "body": "Variables.$1 = $2",
+    "description": "Assign value to variable"
+  },
+  "Math Evaluation": {
+    "prefix": "math",
+    "body": "Math.Eval($1)",
+    "description": "Evaluate mathematical expression"
+  },
+  "Math Comparison": {
+    "prefix": "compare",
+    "body": "Math.Compare($1, \"$2\", $3)",
+    "description": "Compare two numeric values"
+  },
+  "Data Comparison": {
+    "prefix": "datacmp",
+    "body": "Data.Compare($1, $2)",
+    "description": "Compare two values for equality"
+  },
+  "If Statement": {
+    "prefix": "if",
+    "body": [
+      "Program.If($1) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Conditional execution block"
+  },
+  "Loop Statement": {
+    "prefix": "loop",
+    "body": [
+      "Program.Loop($1) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Counted loop"
+  },
+  "Forever Loop": {
+    "prefix": "forever",
+    "body": [
+      "Program.ForeverLoop {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Infinite loop"
+  },
+  "Break Loop": {
+    "prefix": "break",
+    "body": "Program.BreakLoop",
+    "description": "Exit current loop"
+  },
+  "Continue": {
+    "prefix": "continue",
+    "body": "Program.Continue",
+    "description": "Skip to next iteration"
+  },
+  "Terminal Style": {
+    "prefix": "style",
+    "body": "Terminal.Style(\"$1\")",
+    "description": "Set terminal text style/color"
+  },
+  "Hello World Program": {
+    "prefix": "hello",
+    "body": [
+      "Program.Main {",
+      "\tTerminal.Echo(\"Hello, World!\")",
+      "}"
+    ],
+    "description": "Basic hello world program"
+  },
+  "Input Example": {
+    "prefix": "input",
+    "body": [
+      "Variables.New(Name)",
+      "Variables.Name = Terminal.Ask(\"What's your name? \")",
+      "Terminal.Echo(\"Hello, \" + Variables.Name + \"!\")"
+    ],
+    "description": "Get user input and display greeting"
+  },
+  "Math Example": {
+    "prefix": "mathex",
+    "body": [
+      "Variables.New(Result)",
+      "Variables.Result = Math.Eval(10 + 5 * 2)",
+      "Terminal.Echo(\"Result: \" + Variables.Result)"
+    ],
+    "description": "Mathematical calculation example"
+  },
+  "Conditional Example": {
+    "prefix": "condex",
+    "body": [
+      "Variables.New(Count)",
+      "Variables.Count = 10",
+      "",
+      "Program.If(Math.Compare(Variables.Count, \">\", 5)) {",
+      "\tTerminal.Echo(\"Count is greater than 5!\")",
+      "}"
+    ],
+    "description": "Conditional execution example"
+  }
+}

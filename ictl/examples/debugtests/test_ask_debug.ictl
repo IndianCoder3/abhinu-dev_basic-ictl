@@ -1,0 +1,6 @@
+Program.Main {
+    Variables.New(Name)
+    Variables.Name = Terminal.Ask("Name: ")
+    
+    Terminal.Echo("Hello, " + Variables.Name)
+}
