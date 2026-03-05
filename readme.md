@@ -1,3 +1,7 @@
+![Python](https://img.shields.io/badge/Python-3.7+-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/status-in%20development-orange)
+
 <h1 align="center" style="font-family: Comic Sans Ms; color:lightyellow">Abhinu.Dev Basic ICTL</h1>
 <h1 align="center">
   <a href="https://github.com/indiancoder3/abhinu-dev_basic-ictl" target="_blank"><img src="ictl_banner.png" alt="Abhinu.Dev Basic ICTL Banner"/></a>
@@ -5,13 +9,15 @@
 <p align="center"><b>A basic programming language made for making the learning journey easy! Contributions are welcome!</b></p>
 
 <p align="center">
-    <a href="https://www.python.org">Python (for building the language interpretor)</a> |
+    <a href="https://www.python.org">Python (for building the language interpreter)</a> |
     <a href="https://indiancoder3.github.io">IndianCoder3</a> |
     <a href="#command-reference">Command Reference</a>
 </p>
 
-> [!Caution]
-This programming language is **still in development**, and **I (IndianCoder3) am not responsible for any malacious threats**. Although the environment is sandboxed, it is still unsafe, for e.g., the `Math.Eval()` uses the Python's inbuilt `eval()` function, which can be malacious. **Yet be warned**
+> [!CAUTION]
+> This programming language is **still in development**.
+> Some features (such as `Math.Eval()`) internally use Python's `eval()`,
+> which can **execute arbitrary code**. **Use with caution.**
 
 ---
 
@@ -504,7 +510,6 @@ ictl/
 │   └── data.py          # Data comparison
 ├── examples/            # Example programs
 ├── cmd-refer/           # Command reference
-└── __pycache__/         # Cache files
 ```
 
 ---
