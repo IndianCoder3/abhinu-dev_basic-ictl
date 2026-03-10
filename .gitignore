@@ -1,2 +1,45 @@
 /ictl/__pycache__
 *.pyc
+
+# C/C++ Build artifacts
+build/
+CMakeFiles/
+cmake_install.cmake
+CMakeCache.txt
+*.cmake
+
+# Compiled binaries
+ictl
+ictl.exe
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.so
+*.dylib
+
+# IDE and editor files
+.vscode/
+.idea/
+*.code-workspace
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# OS-specific
+.Spotlight-V100
+.Trashes
+
+# Debug files
+*.pdb
+*.gch
+
+# Visual Studio
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
