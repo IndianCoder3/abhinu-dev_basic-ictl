@@ -1,0 +1,15 @@
+Program.Main {
+    Variables.New(BreakCounter)
+    Variables.BreakCounter = 0
+    
+    Program.ForeverLoop {
+        Variables.BreakCounter = Math.Eval(Variables.BreakCounter + 1)
+        Terminal.Echo("ForeverLoop iteration: " + Variables.BreakCounter)
+        
+        Program.If(Math.Compare(Variables.BreakCounter, ">", 2)) {
+            Terminal.Echo("Breaking!")
+            Program.BreakLoop
+        }
+    }
+    Terminal.Echo("Done!")
+}

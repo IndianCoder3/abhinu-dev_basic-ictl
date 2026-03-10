@@ -191,12 +191,12 @@ def eval_expr(expr):
     if expr.startswith("Math.Eval"):
         try:
             inner = extract_args(expr)[0]
-            resolved = resolve_math_expr(inner)
-            return math_eval(resolved)
+            # Pass raw expression directly, math engine handles Variables.*
+            return math_eval(inner)
         except IndexError:
             raise MathErrorICTL("Math.Eval() requires an expression: Math.Eval(2+2)")
-        except ValueError as e:
-            raise MathErrorICTL(f"Invalid math expression: {inner}")
+        except Exception as e:
+            raise MathErrorICTL(f"Math.Eval error: {str(e)}")
 
     # Math.Compare
     if expr.startswith("Math.Compare"):
@@ -232,14 +232,14 @@ def eval_expr(expr):
 
     return expr
 
-def resolve_math_expr(expr):
-    expr = expr.strip()
-
-    # Replace Variables.X with their values
-    for name, value in variables.items():
-        expr = expr.replace(f"Variables.{name}", str(value))
-
-    return expr
+#def resolve_math_expr(expr):
+#    expr = expr.strip()
+#
+#    # Replace Variables.X with their values
+#    for name, value in variables.items():
+#        expr = expr.replace(f"Variables.{name}", str(value))
+#
+#    return expr
 
 def split_by_concat_operator(expr):
     """Split expression by + operator, but respect string boundaries and parentheses"""
