@@ -14,11 +14,11 @@ Program.Main {
     Terminal.Clear
     Terminal.Style("green")
     Terminal.Echo("Welcome to the Random Number Guessing Game!")
-    Terminal.Echo("I have selected a random number between 1 and 100. Can you guess it?")
+    Terminal.Echo("I have selected a random number between 1 and 100. Can you guess it? ")
     Terminal.Style("reset")
     Terminal.Echo("")
     Program.ForeverLoop {
-        Variables.userGuess = Terminal.Ask("Please enter your guess:")
+        Variables.userGuess = Terminal.Ask("Please enter your guess: ")
         Variables.guessCount = Math.Eval((Variables.guessCount) + 1)
         Program.If(Math.Compare(Variables.userGuess, "<", Variables.randomNumber)) {
             Terminal.Echo("Too low! Try again.")
