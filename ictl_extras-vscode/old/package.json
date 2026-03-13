@@ -1,0 +1,45 @@
+{
+  "name": "abhinu-dev-basic-ictl-language-support",
+  "displayName": "Abhinu.Dev Basic ICTL",
+  "description": "Language support for Abhinu.Dev Basic ICTL programming language - syntax highlighting, snippets, and configuration",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "ictl",
+        "aliases": [
+          "ICTL",
+          "ictl"
+        ],
+        "extensions": [
+          ".ictl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "ictl",
+        "scopeName": "source.ictl",
+        "path": "./syntaxes/ictl.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "ictl",
+        "path": "./snippets/ictl.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abhinu-dev/ictl"
+  },
+  "publisher": "abhinu-dev"
+}

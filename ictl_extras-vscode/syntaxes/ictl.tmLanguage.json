@@ -1,117 +1,58 @@
 {
-  "name": "ICTL",
   "scopeName": "source.ictl",
+  "name": "ICTL",
+
   "patterns": [
-    {
-      "include": "#comments"
-    },
-    {
-      "include": "#strings"
-    },
-    {
-      "include": "#numbers"
-    },
-    {
-      "include": "#booleans"
-    },
-    {
-      "include": "#modules"
-    },
-    {
-      "include": "#operators"
-    },
-    {
-      "include": "#brackets"
-    }
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#keywords" },
+    { "include": "#variables" }
   ],
+
   "repository": {
+
     "comments": {
       "patterns": [
-        {
-          "name": "comment.line.ictl",
-          "match": "#.*$"
-        },
-        {
-          "name": "comment.line.double-slash.ictl",
-          "match": "//.*$"
-        },
-        {
-          "name": "comment.block.ictl",
-          "begin": "/\\*",
-          "end": "\\*/"
-        }
+        { "name": "comment.line.hash.ictl", "match": "#.*$" },
+        { "name": "comment.line.double-slash.ictl", "match": "//.*$" }
       ]
     },
+
     "strings": {
-      "name": "string.quoted.double.ictl",
-      "begin": "\"",
-      "end": "\"",
       "patterns": [
         {
-          "name": "constant.character.escape.ictl",
-          "match": "\\\\."
+          "name": "string.quoted.double.ictl",
+          "begin": "\"",
+          "end": "\""
         }
       ]
     },
+
     "numbers": {
       "patterns": [
+        { "name": "constant.numeric.float.ictl", "match": "\\b-?[0-9]+\\.[0-9]+\\b" },
+        { "name": "constant.numeric.integer.ictl", "match": "\\b-?[0-9]+\\b" }
+      ]
+    },
+
+    "keywords": {
+      "patterns": [
         {
-          "name": "constant.numeric.float.ictl",
-          "match": "\\b\\d+\\.\\d+\\b"
-        },
-        {
-          "name": "constant.numeric.integer.ictl",
-          "match": "\\b\\d+\\b"
+          "name": "keyword.control.ictl",
+          "match": "\\b(Program|Terminal|Math|Variables|Data|Time|True|False)\\b"
         }
       ]
     },
-    "booleans": {
+
+    "variables": {
       "patterns": [
         {
-          "name": "constant.language.boolean.ictl",
-          "match": "\\b(True|False)\\b"
-        }
-      ]
-    },
-    "modules": {
-      "patterns": [
-        {
-          "name": "entity.name.function.ictl",
-          "match": "\\b(Terminal|Variables|Math|Data|Program)\\."
-        },
-        {
-          "name": "entity.name.function.ictl",
-          "match": "\\b(Terminal|Variables|Math|Data|Program)\\.[A-Za-z]+\\b"
-        }
-      ]
-    },
-    "operators": {
-      "patterns": [
-        {
-          "name": "keyword.operator.ictl",
-          "match": "\\+|\\-|\\*|/|==|!=|>=|<=|>|<|="
-        }
-      ]
-    },
-    "brackets": {
-      "patterns": [
-        {
-          "name": "punctuation.section.braces.begin.ictl",
-          "match": "\\{"
-        },
-        {
-          "name": "punctuation.section.braces.end.ictl",
-          "match": "\\}"
-        },
-        {
-          "name": "punctuation.section.parens.begin.ictl",
-          "match": "\\("
-        },
-        {
-          "name": "punctuation.section.parens.end.ictl",
-          "match": "\\)"
+          "name": "variable.other.ictl",
+          "match": "\\bVariables\\.[A-Za-z_][A-Za-z0-9_]*\\b"
         }
       ]
     }
+
   }
 }

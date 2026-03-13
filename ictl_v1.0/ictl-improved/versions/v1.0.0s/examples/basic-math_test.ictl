@@ -1,0 +1,12 @@
+Program.Main {
+    Terminal.Style("green")
+    Variables.New(Name)
+    Variables.New(MathQuestion)
+    Variables.Name = Terminal.Ask("What is your name: ")
+    Terminal.Style("yellow")
+    Terminal.Echo("Hi, " + Variables.Name + "!")
+    Terminal.Style("cyan")
+    Variables.MathQuestion = Terminal.Ask("Give me a math question and I will solve it: ")
+    Terminal.Echo("The answer is: " + Math.Eval(Variables.MathQuestion))
+    # This is a comment
+}

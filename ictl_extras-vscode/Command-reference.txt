@@ -7,7 +7,7 @@ COMPLETE LIST OF ALL SUPPORTED COMMANDS AND FEATURES:
 1. TERMINAL COMMANDS
 ============================
 
-Terminal.Echo(<expression>)
+Terminal.Echo(<expression>) 
   - Output text to console
   - Parameters: Any expression (string, variable, math result)
   - Example: Terminal.Echo("Hello, World!")
@@ -76,8 +76,39 @@ Math.Compare(<value_a>, <operator>, <value_b>)
   - Example: Math.Compare(10, ">", 5)
   - Example: Math.Compare(Variables.X, "<=", 100)
 
+Math.Random(<min>, <max>)
+  - Generate random number between min and max (inclusive)
+  - Parameters: Two integers (min and max)
+  - Returns: Random integer within range
+  - Example: Math.Random(1, 100)
+  - Example: Variables.Roll = Math.Random(1, 6)
+  - Example: Math.Random(0, 1) for coin flip simulation
 
-4. DATA COMPARISON
+
+4. TIME OPERATIONS
+============================
+
+Time.Current(<format>)
+  - Get current system time with specified format
+  - Parameter: Format string (e.g., "hh:mm:ss tt", "yyyy-MM-dd", "HH:mm:ss")
+  - Returns: Current time as formatted string
+  - Common formats:
+    * "hh:mm:ss tt" - 12-hour time with AM/PM (e.g., 03:45:30 PM)
+    * "HH:mm:ss" - 24-hour time (e.g., 15:45:30)
+    * "yyyy-MM-dd" - Date (e.g., 2025-03-13)
+    * "yyyy-MM-dd HH:mm:ss" - Date and time
+  - Example: Terminal.Echo(Time.Current("hh:mm:ss tt"))
+  - Example: Variables.StartTime = Time.Current("HH:mm:ss")
+
+Time.Wait(<milliseconds>)
+  - Pause program execution for specified time
+  - Parameter: Integer milliseconds (1000 ms = 1 second)
+  - Example: Time.Wait(1000) # Wait 1 second
+  - Example: Time.Wait(500) # Wait half second
+  - Example: Program.Loop(5) { Terminal.Echo(".") ; Time.Wait(500) }
+
+
+5. DATA COMPARISON
 ============================
 
 Data.Compare(<value_a>, <value_b>)
@@ -88,7 +119,7 @@ Data.Compare(<value_a>, <value_b>)
   - Example: Data.Compare(Variables.Input, "yes")
 
 
-5. CONTROL FLOW - CONDITIONALS
+6. CONTROL FLOW - CONDITIONALS
 ============================
 
 Program.If(<condition>) { ... }
@@ -98,6 +129,7 @@ Program.If(<condition>) { ... }
     * Math.Compare(...)
     * Boolean literal (True/False)
     * Result of any comparison
+    * Program.Not(...)
   - Example:
     Program.If(Math.Compare(X, ">", 5)) {
         Terminal.Echo("X is greater than 5")
@@ -109,8 +141,27 @@ Program.If(<condition>) { ... }
         }
     }
 
+Program.Else { ... }
+  - Execute block if preceding Program.If condition was false
+  - Must follow a Program.If block
+  - Only one Program.Else per Program.If
+  - Example:
+    Program.If(Math.Compare(X, ">", 5)) {
+        Terminal.Echo("X is greater than 5")
+    }
+    Program.Else {
+        Terminal.Echo("X is 5 or less")
+    }
 
-6. LOOPS - COUNTED LOOP
+Program.Not(<condition>)
+  - Flip/negate a boolean condition
+  - Returns opposite of condition (true becomes false, false becomes true)
+  - Example: Program.Not(Math.Compare(1, "==", 1)) results in false (because Math.Compare is true)
+  - Example: Program.If(Program.Not(Data.Compare(name, "admin"))) { ... }
+  - Useful for inverting comparisons without complex logic
+
+
+7. LOOPS - COUNTED LOOP
 ============================
 
 Program.Loop(<count>) { ... }
@@ -123,7 +174,7 @@ Program.Loop(<count>) { ... }
   - Supports loop control (Break/Continue) inside
 
 
-7. LOOPS - INFINITE LOOP
+8. LOOPS - INFINITE LOOP
 ============================
 
 Program.ForeverLoop { ... }
@@ -138,7 +189,7 @@ Program.ForeverLoop { ... }
     }
 
 
-8. LOOP CONTROL STATEMENTS
+9. LOOP CONTROL STATEMENTS
 ============================
 
 Program.BreakLoop
@@ -162,7 +213,7 @@ Program.Continue
     }
 
 
-9. MAIN PROGRAM BLOCK
+10. MAIN PROGRAM BLOCK
 ============================
 
 Program.Main { ... }
@@ -175,7 +226,7 @@ Program.Main { ... }
     }
 
 
-10. DATA TYPES
+11. DATA TYPES
 ============================
 
 String Literals
@@ -201,7 +252,7 @@ Boolean Literals
   - Example: Program.If(True) { ... }
 
 
-11. OPERATORS
+12. OPERATORS
 ============================
 
 String Concatenation
@@ -227,7 +278,7 @@ Comparison Operators (in Math.Compare)
   - Not equal: "!="
 
 
-12. COMMENTS
+13. COMMENTS
 ============================
 
 Single-line comments
@@ -236,7 +287,7 @@ Single-line comments
   - Example: // This is also a comment
 
 
-13. SCOPE RULES
+14. SCOPE RULES
 ============================
 
 - Variables are global (accessible anywhere after declaration)
@@ -245,7 +296,7 @@ Single-line comments
 - Loop variables persist after loop ends
 
 
-14. EXAMPLE PROGRAM
+15. EXAMPLE PROGRAM - BASIC
 ============================
 
 Program.Main {
@@ -277,24 +328,79 @@ Program.Main {
 }
 
 
+16. EXAMPLE PROGRAM - PROGRAM.ELSE
+============================
+
+Program.Main {
+    Variables.New(Score)
+    Variables.Score = Math.Random(0, 100)
+    Terminal.Echo("Your score: " + Variables.Score)
+    
+    Program.If(Math.Compare(Variables.Score, ">", 50)) {
+        Terminal.Echo("You passed!")
+    }
+    Program.Else {
+        Terminal.Echo("You failed!")
+    }
+}
+
+
+17. EXAMPLE PROGRAM - PROGRAM.NOT
+============================
+
+Program.Main {
+    Variables.New(Username)
+    Variables.Username = Terminal.Ask("Enter username: ")
+    
+    Program.If(Program.Not(Data.Compare(Variables.Username, "admin"))) {
+        Terminal.Echo("Access denied - you are not an admin")
+    }
+    Program.Else {
+        Terminal.Echo("Welcome, admin!")
+    }
+}
+
+
+18. EXAMPLE PROGRAM - TIME AND MATH.RANDOM
+============================
+
+Program.Main {
+    Terminal.Echo("Current time: " + Time.Current("hh:mm:ss tt"))
+    
+    Terminal.Echo("Processing...")
+    Time.Wait(2000) # Wait 2 seconds
+    Terminal.Echo("Done! Finished at " + Time.Current("HH:mm:ss"))
+    
+    # Random number game
+    Variables.New(SecretNumber)
+    Variables.SecretNumber = Math.Random(1, 10)
+    Terminal.Echo("Secret number between 1 and 10 has been chosen")
+    
+    Variables.New(DiceRoll)
+    Variables.DiceRoll = Math.Random(1, 6)
+    Terminal.Echo("You rolled a " + Variables.DiceRoll)
+}
+
+
 ========================================================================
 MEGATEST FILE
 ========================================================================
 
 A comprehensive test file (megatest.ictl) is included that tests every
-feature of the interpreter across 11 sections with 42+ individual tests:
+feature of the interpreter across the following sections with 50+ individual tests:
 
 1. Terminal Commands (Echo, Style)
 2. Variables (New, Assignment, Access)
 3. String Operations (Concatenation)
-4. Math Operations (Eval)
+4. Math Operations (Eval, Random)
 5. Comparison Operations (Data.Compare, Math.Compare)
-6. Control Flow (If statements, Nesting)
+6. Control Flow (If, Else, Not statements, Nesting)
 7. Loops - Counted (Program.Loop)
 8. Loops - Forever with Break
 9. Loop Control (Continue)
-10. Complex Expressions (Combined operations)
-11. Boolean Literals
+10. Time Operations (Current, Wait)
+11. Complex Expressions (Combined operations)
+12. Boolean Literals
 
 Run with: python main.py megatest.ictl
 

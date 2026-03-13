@@ -1,0 +1,26 @@
+Program.Main {
+    Terminal.Echo("TESTING FILE UPDATES - NEW FEATURES")
+    Variables.New(RandomNumber)
+    Variables.RandomNumber = Math.Random(1, 100)
+    Terminal.Echo("Random number generated: " + Variables.RandomNumber)
+    Terminal.Echo("Let's get another random number for good measure.")
+    Variables.RandomNumber = Math.Random(1, 100)
+    Terminal.Echo("Another random number generated: " + Variables.RandomNumber)
+
+    Program.If(Math.Compare(Variables.RandomNumber, ">", 50)) {
+        Terminal.Echo("The random number is greater than 50.")
+    } Program.Else {
+        Terminal.Echo("The random number is 50 or less.")
+    }
+    
+    Program.If(Program.Not(Math.Compare(Variables.RandomNumber, ">", 50))) {
+        Terminal.Echo("Using NOT operator: The random number is 50 or less.")
+    }
+
+    Terminal.Echo("Now let's test time with the new features. Count to 2!")
+    Time.Wait(2)
+    Terminal.Echo("2 seconds have passed.")
+    Variables.New(NowTime)
+    Variables.NowTime = Time.Current("hh:mm:ss tt")
+    Terminal.Echo("Current time: " + Variables.NowTime)
+}

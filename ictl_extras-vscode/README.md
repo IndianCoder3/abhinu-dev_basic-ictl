@@ -10,14 +10,20 @@ This VS Code extension provides language support for the Abhinu.Dev Basic ICTL p
 
 ## Installation
 
-### Option 1: Install from VSIX (Recommended)
+### Option 1: Install from VS Code Extension Marketplace (easiest)
 
-1. Download the `.vsix` file for this extension
+1. Open VS Code and open the Extensions Panel (`Ctrl+Shift+X`)
+2. Search for `Abhinu.Dev Basic ICTL Language`
+3. Install it.
+
+### Option 2: Install from VSIX
+
+1. Download the `.vsix` file for this extension from the GitHub repository (github.com/indiancoder3/abhinu-dev_basic-ictl)
 2. In VS Code, open the Command Palette (`Ctrl+Shift+P`)
 3. Run `Extensions: Install from VSIX...`
 4. Select the downloaded `.vsix` file
 
-### Option 2: Manual Installation
+### Option 3: Manual Installation
 
 1. Copy the extension files to your VS Code extensions directory:
    - Windows: `%USERPROFILE%\.vscode\extensions\ictl-language-support-0.1.0`

@@ -1,0 +1,8 @@
+Program.Main {
+    Variables.New(Counter)
+    Variables.Counter = 0
+    Program.Loop(1000000) {
+        Variables.Counter = Math.Eval(Variables.Counter + 1)
+    }
+    Terminal.Echo("Final value: " + Variables.Counter)
+}
