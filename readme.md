@@ -1,6 +1,8 @@
 ![Python](https://img.shields.io/badge/Python-3.7+-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/status-in%20development-orange)
+![GitHub last commit](https://img.shields.io/github/last-commit/indiancoder3/abhinu-dev_basic-ictl)
+![GitHub issues](https://img.shields.io/github/issues/indiancoder3/abhinu-dev_basic-ictl)
 
 <h1 align="center" style="font-family: Comic Sans Ms; color:lightyellow">Abhinu.Dev Basic ICTL</h1>
 <h1 align="center">
@@ -11,7 +13,8 @@
 <p align="center">
     <a href="https://www.python.org">Python (for building the language interpreter)</a> |
     <a href="https://indiancoder3.github.io">IndianCoder3</a> |
-    <a href="#command-reference">Command Reference</a>
+    <a href="#command-reference">Command Reference</a> |
+    <a href="#building-story">Build Story</a>
 </p>
 
 > [!CAUTION]
@@ -32,6 +35,7 @@
 - [VS Code Extension](#vs-code-extension)
 - [Examples](#examples)
 - [Building from Source](#building-from-source)
+- [Building Story (Lore)](#building-story)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -128,20 +132,20 @@ Choose one of the two installation paths below:
 ### 🚀 Path 1: Recommended - Use Pre-built Release
 
 The easiest way to get started! Each release includes:
-- **PyInstaller Standalone** - Portable executable, no Python required
+- **Nuitka/PyInstaller Standalone** - Portable executable, no Python required
 - **Inno Setup Installer** - System-wide installation for Windows
-- **VSIX Extension** - VS Code language support
+- **VSIX Extension** - VS Code language support (alongside the main interpreter, of course!)
 
 #### Download from Releases
 
 1. Go to [GitHub Releases](https://github.com/indiancoder3/abhinu-dev_basic-ictl/releases)
 2. Download the latest release files for your platform
 
-#### Option A: Standalone Executable (Easiest)
+#### Option A: Standalone Executable (Easiest - because of constant updates)
 
 ```bash
-# Download ICTL-v1.0s.exe (or your version)
-ICTL-v1.0s.exe your_program.ictl
+# Download ICTL.exe (or your version)
+ICTL.exe your_program.ictl
 ```
 
 No Python installation required!
@@ -173,6 +177,7 @@ For developers who want to modify or contribute to the language.
 
 - Python 3.7 or higher
 - `pip` (Python package installer)
+- Nuitka installed (PyInstaller can be used too, but it's slow)
 - Windows, macOS, or Linux
 
 #### Installation Steps
@@ -187,7 +192,7 @@ cd abhinu-dev_basic-ictl
 2. **Navigate to ICTL Directory**
 
 ```bash
-cd ictl
+cd ictl-v1.1.0 # This may differ from the latest version, use that.
 ```
 
 3. **Run Programs**
@@ -214,8 +219,10 @@ Variables store data that you can use throughout your program.
 
 **Declaring a Variable:**
 ```ictl
-Variables.New(MyVariable)
+Variables.New("MyVariable")  # Make sure, quotes here, and no spaces!
 ```
+
+> Some parts of the documentation have missed quotes, so please understand there should be quotes. Although due to a bug, it works even without quotes, it will be patched in a future update.
 
 **Assigning a Value:**
 ```ictl
@@ -227,7 +234,7 @@ Variables.Pi = 3.14
 **Using Variables:**
 ```ictl
 Program.Main {
-    Variables.New(Name)
+    Variables.New("Name")
     Variables.Name = "Alice"
     Terminal.Echo("Hello, " + Variables.Name)
 }
@@ -249,6 +256,8 @@ Program.Main {
 }
 ```
 
+For those who are thinking that using `+` directly can add too, try `2+2` directly. It will return `22`, as Math is suppposed to be evaluated via `Math.Eval`
+
 ### Terminal I/O
 
 **Output (Echo):**
@@ -260,7 +269,7 @@ Terminal.Echo(Variables.Counter)
 **Input (Ask):**
 ```ictl
 Program.Main {
-    Variables.New(Name)
+    Variables.New("Name")
     Variables.Name = Terminal.Ask("What is your name? ")
     Terminal.Echo("Nice to meet you, " + Variables.Name)
 }
@@ -282,7 +291,7 @@ Available styles: `red`, `green`, `blue`, `yellow`, `cyan`, `magenta`, `bold`, `
 **Evaluating Expressions:**
 ```ictl
 Program.Main {
-    Variables.New(Result)
+    Variables.New("Result")
     Variables.Result = Math.Eval(10 + 5)
     Terminal.Echo(Variables.Result)  # Output: 15
     
@@ -299,7 +308,7 @@ Supported operators: `+`, `-`, `*`, `/`, parentheses `()`
 **Comparing Numbers:**
 ```ictl
 Program.Main {
-    Variables.New(X)
+    Variables.New("X")
     Variables.X = 10
     
     Program.If(Math.Compare(Variables.X, ">", 5)) {
@@ -312,25 +321,33 @@ Operators: `>`, `<`, `>=`, `<=`, `==`, `!=`
 
 ### Conditionals
 
-**If Statement:**
+**If Statement with Else:**
 ```ictl
 Program.Main {
-    Variables.New(Age)
+    Variables.New("Age")
     Variables.Age = Terminal.Ask("How old are you? ")
     
     Program.If(Math.Compare(Variables.Age, ">=", 18)) {
         Terminal.Echo("You are an adult")
+    }
+    Program.Else {
+        Terminal.Echo("You are a kid!")
     }
 }
 ```
 
 **Nested Conditionals:**
 ```ictl
-Program.If(Math.Compare(Score, ">", 90)) {
+Program.If(Math.Compare(Variables.Score, ">", 90)) {
     Terminal.Echo("Grade: A")
     
-    Program.If(Math.Compare(Score, "==", 100)) {
+    Program.If(Math.Compare(Variables.Score, "==", 100)) {
         Terminal.Echo("Perfect score!")
+    }
+}
+Program.Else {
+    Program.If(Math.Compare(Variables.Score, ">", 80)) {
+        Terminal.Echo("Grade: B, you were left out just by a few marks!")
     }
 }
 ```
@@ -366,13 +383,13 @@ Program.Main {
 **Continue Statement:**
 ```ictl
 Program.Loop(10) {
-    Program.If(Math.Compare(i, "==", 5)) {
+    Program.If(Math.Compare(Variables.i, "==", 5)) {
         Program.Continue
     }
-    Terminal.Echo(i)
+    Terminal.Echo(Variables.i)
 }
 ```
-
+> Additional improvement for the examples is needed, contributions here are welcome!
 ---
 
 ## Command Reference
@@ -384,6 +401,7 @@ Program.Loop(10) {
 | `Terminal.Echo(<expr>)` | Print to console | `Terminal.Echo("Hello")` |
 | `Terminal.Ask(<prompt>)` | Get user input | `Variables.X = Terminal.Ask("Enter value: ")` |
 | `Terminal.Style(<style>)` | Set text color/style | `Terminal.Style("green")` |
+| `Terminal.Clear` | Clear the terminal | `Terminal.Clear` |
 
 ### Variable Commands
 
@@ -399,7 +417,8 @@ Program.Loop(10) {
 |---------|-------------|---------|
 | `Math.Eval(<expr>)` | Calculate expression | `Math.Eval(10 + 5 * 2)` |
 | `Math.Compare(<a>, <op>, <b>)` | Compare numbers | `Math.Compare(X, ">", 5)` |
-| `Data.Compare(<a>, <b>)` | Compare values | `Data.Compare(Input, "yes")` |
+| `Data.Compare(<a>, <b>)` | Compare values (as strings) | `Data.Compare(Input, "yes")` |
+| `Math.Random(<min>, <max>)` | Output a random number in the range | `Math.Random(1, 100)`
 
 ### Control Flow
 
@@ -407,12 +426,16 @@ Program.Loop(10) {
 |---------|-------------|---------|
 | `Program.Main { ... }` | Program entry point | `Program.Main { ... }` |
 | `Program.If(<cond>) { ... }` | Conditional execution | `Program.If(cond) { ... }` |
+`Program.Else { ... }` | Else for the If | `Program.Else { ... }`
 | `Program.Loop(<n>) { ... }` | Loop N times | `Program.Loop(10) { ... }` |
 | `Program.ForeverLoop { ... }` | Infinite loop | `Program.ForeverLoop { ... }` |
 | `Program.BreakLoop` | Exit loop | `Program.BreakLoop` |
 | `Program.Continue` | Next iteration | `Program.Continue` |
+| `Program.Not(<cond>)` | FLip a condition | `Program.Not(Data.Compare("h", "h"))` |
 
 For the complete command reference, see [ictl/cmd-refer/COMMAND_REFERENCE.txt](ictl/cmd-refer/COMMAND_REFERENCE.txt).
+
+> The command reference file may be outdated, please refer here instead.
 
 ---
 
@@ -421,6 +444,11 @@ For the complete command reference, see [ictl/cmd-refer/COMMAND_REFERENCE.txt](i
 The ICTL language is supported in VS Code with syntax highlighting, code snippets, and language configuration.
 
 ### Installation
+1. Open [Abhinu.Dev Basic ICTL Language Support](https://marketplace.visualstudio.com/items?itemName=IndianCoder3.ictl-language) in your browser.
+2. Press Install, it will ask if you do have VS Code. Continue, and let the website open VS Code.
+3. You will see the extension. Install it.
+
+Or:
 
 1. Download the extension VSIX file from the [ictl_extras-vscode](ictl_extras-vscode/) directory or better, use the one from the latest release.
 2. In VS Code, press `Ctrl+Shift+P` and run `Extensions: Install from VSIX...`
@@ -429,13 +457,7 @@ The ICTL language is supported in VS Code with syntax highlighting, code snippet
 ### Features
 
 - 🎨 **Syntax Highlighting**: Full highlighting for all ICTL constructs
-- 📝 **Code Snippets**: Quick insertion of common patterns
-  - `main` → Main program block
-  - `echo` → Terminal.Echo
-  - `ask` → Terminal.Ask
-  - `var` → Variable declaration
-  - `if` → If statement
-  - `loop` → Loop statement
+- 📝 **Learning Focused**: Catergorised properly, helping code and learn easily
 - ⚙️ **Language Configuration**: Auto-closing brackets, comments, indentation
 
 ### Usage
@@ -459,14 +481,13 @@ The repository includes several complete examples in [ictl/examples/](ictl/examp
 - **[basic-math_test.ictl](ictl/examples/basic-math_test.ictl)** - Math operations
 - **[if-loops_test.ictl](ictl/examples/if-loops_test.ictl)** - Conditionals and loops
 - **[welcome_test.ictl](ictl/examples/welcome_test.ictl)** - Interactive tutorial
-- **[AllTests_test.ictl](ictl/examples/AllTests_test.ictl)** - Comprehensive test
+- **[megatest.ictl](ictl/examples/AllTests_test.ictl)** - Comprehensive test
 
 ### Running Examples
 
 ```bash
-cd ictl
-python main.py examples/basic_test.ictl
-python main.py examples/welcome_test.ictl
+ictl examples/basic_test.ictl
+ictl examples/welcome_test.ictl
 ```
 
 ---
@@ -486,7 +507,7 @@ git clone https://github.com/indiancoder3/abhinu-dev_basic-ictl.git
 cd abhinu-dev_basic-ictl
 
 # Navigate to ICTL directory
-cd ictl
+cd ictl-v1.1.0 # May differ
 
 # Run the interpreter
 python main.py           # Interactive mode
@@ -496,7 +517,7 @@ python main.py test.ictl # Execute a file
 ### Project Structure
 
 ```
-ictl/
+ictl-v1.1.0/
 ├── main.py              # Entry point
 ├── parser.py            # Lexer & parser
 ├── runtime.py           # Execution engine
@@ -511,7 +532,6 @@ ictl/
 ├── examples/            # Example programs
 ├── cmd-refer/           # Command reference
 ```
-
 ---
 
 ## Contributing
@@ -556,7 +576,22 @@ Contributions are welcome! Whether it's bug fixes, new features, examples, or do
 - Declare variables with `Variables.New(Name)` before use
 - Check spelling and capitalization
 
+**Invalid expression (and includes the variable name) in Math**
+- This bug only happens when you didn't make a variable, or you did make it, but never assigned a value.
+
 ---
+
+## Building Story
+I started off with Scratch and then explored Python and HTML. I noticed that switching from Scratch to Python is easy for some things, but there’s no simple graphics built-in (unless you use PyGame or Turtle).  
+
+So, I wanted a language that’s easy to understand for beginners. That’s how Abhinu.Dev Basic ICTL was born!
+
+### The Name Lore
+- **Abhinu.Dev**: My name is Abhinu, so the project is called Abhinu.Dev.  
+- **ICTL**: My handle is @IndianCoder3 → IC3 → ICT → ICTL.  
+
+### The Goals of the Language
+Currently, there is no GUI or something, but I am trying to implement it! So, Any help or contributions are welcome! We need graphics for this. Right now, I can think of the Small Basic Turtle, but let's see...
 
 ## License
 
@@ -625,6 +660,7 @@ Special thanks to:
 For questions, issues, or suggestions:
 - GitHub: [@indiancoder3](https://github.com/indiancoder3)
 - GitHub Issues: Report bugs and request features
+- Email: mailto:indiancoder3@hotmail.com
 
 ---
 
