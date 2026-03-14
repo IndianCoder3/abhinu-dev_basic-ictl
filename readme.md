@@ -431,7 +431,13 @@ Program.Loop(10) {
 | `Program.ForeverLoop { ... }` | Infinite loop | `Program.ForeverLoop { ... }` |
 | `Program.BreakLoop` | Exit loop | `Program.BreakLoop` |
 | `Program.Continue` | Next iteration | `Program.Continue` |
-| `Program.Not(<cond>)` | FLip a condition | `Program.Not(Data.Compare("h", "h"))` |
+| `Program.Not(<cond>)` | Flip a condition | `Program.Not(Data.Compare("h", "h"))` |
+
+### Time Commands
+| Command | Description | Example |
+|---------|-------------|---------|
+| `Time.Wait(<duration in sec>)` | Wait for seconds | `Time.Wait(2.5)` |
+| `Time.Current(<format>)` | Fetch current time in a format |   `Variables.Time = Time.Current("hh:mm tt")`
 
 For the complete command reference, see [ictl/cmd-refer/COMMAND_REFERENCE.txt](ictl/cmd-refer/COMMAND_REFERENCE.txt).
 
