@@ -19,8 +19,11 @@
 
 > [!CAUTION]
 > This programming language is **still in development**.
-> Some features (such as `Math.Eval()`) internally use Python's `eval()`,
-> which can **execute arbitrary code**. **Use with caution.**
+> Some features (such as `Math.Eval()`) **used Python's `eval()` in older versions**, which could **execute arbitrary code**.
+>
+> ⚠️ **This applies only to ICTL v1.0 and below.**
+> Starting from **v1.1.0**, `Math.Eval()` uses a custom math parser instead of `eval()`.
+
 
 ---
 
