@@ -1,0 +1,156 @@
+<!--
+  == Basic ICTL Studio Online ==
+  templates/index.html
+  Licensed under MIT License (https://opensource.org/licenses/MIT)
+  Source: https://github.com/abhinu-gupt/abhinu-dev_basic-ictl
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ICTL Studio — Editor</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+  
+  <style>
+    /* Added transition to all main UI elements */
+    body, .navbar, .ribbon, button, .logo { 
+      margin: 0; 
+      font-family: 'Segoe UI', sans-serif; 
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; 
+    }
+
+    body { background: #f3f3f3; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    .navbar { background: #ffffff; border-bottom: 1px solid #ddd; padding: 0 20px; height: 50px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: bold; color: #28a745; font-size: 1.2rem; }
+    .ribbon { background: #fafafa; border-bottom: 1px solid #ddd; padding: 5px 20px; display: flex; gap: 8px; align-items: center; }
+    
+    /* Dark Theme Styles */
+    body.dark-theme { background: #1e1e1e; color: #eee; }
+    .dark-theme .navbar, .dark-theme .ribbon { background: #252526; border-color: #333; }
+    .dark-theme .logo { color: #4ec9b0; }
+    .dark-theme button { background: #3c3c3c; color: white; border-color: #555; }
+    .dark-theme button:hover { background: #505050; }
+    
+    button { 
+      display: flex; 
+      align-items: center; 
+      gap: 6px; 
+      padding: 4px 10px; 
+      border: 1px solid #ccc; 
+      background: white; 
+      cursor: pointer; 
+      border-radius: 4px; 
+      font-size: 13px; 
+    }
+    button:hover { background: #f0f0f0; }
+    .run-btn { background: #28a745 !important; color: white !important; border: none; font-weight: bold; }
+    .run-btn:hover { background: #218838 !important; }
+    
+    .material-symbols-outlined { font-size: 18px !important; }
+
+    #editor-view, #execution-view { flex: 1; display: flex; flex-direction: column; }
+    #monaco-container { flex: 1; width: 100%; }
+    #terminal-container { flex: 1; background: black; padding: 10px; min-height: 200px; }
+    .hidden { display: none !important; }
+    
+    .status-bar {
+      height: 25px;
+      background: #007acc;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 12px;
+      z-index: 100;
+    }
+
+    /* Change color in Dark Mode */
+    .dark-theme .status-bar {
+      background: #333;
+      border-top: 1px solid #444;
+    }
+
+    .status-left, .status-right {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .status-bar .material-symbols-outlined {
+      font-size: 14px !important;
+    }
+
+    .clickable {
+      cursor: pointer;
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
+
+    .clickable:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <img src="https://raw.githubusercontent.com/IndianCoder3/abhinu-dev_basic-ictl/refs/heads/main/ictl_icon.ico" width="30" height="30" alt="Logo">
+      <div>
+        <div class="logo">Basic ICTL Studio</div>
+        <div style="font-size: 10px; color: #666; margin-top: -4px;">Everyone has the right to code</div>
+      </div>
+    </div>
+    <div class="nav-links"><a href="https://github.com/IndianCoder3/abhinu-dev_basic-ictl" target="_blank">GitHub Repo</a></div>
+  </div>
+
+  <div id="edit-ribbon" class="ribbon">
+    <button onclick="newFile()"><span class="material-symbols-outlined">note_add</span>New</button>
+    <button onclick="openFile()"><span class="material-symbols-outlined">folder_open</span>Open</button>
+    <button onclick="saveFile()"><span class="material-symbols-outlined">save</span>Save</button>
+    <div style="border-left: 1px solid #ddd; height: 20px; margin: 0 5px;"></div>
+    <button onclick="editor.trigger('keyboard', 'undo', 'undo')"><span class="material-symbols-outlined">undo</span>Undo</button>
+    <button onclick="editor.trigger('keyboard', 'redo', 'redo')"><span class="material-symbols-outlined">redo</span>Redo</button>
+    <button id="runBtn" class="run-btn" onclick="startExecution()"><span class="material-symbols-outlined">play_arrow</span>Run</button>
+    <button id="themeBtn" onclick="toggleTheme()">
+      <span class="material-symbols-outlined">dark_mode</span> Switch Theme to Dark
+    </button>
+  </div>
+
+  <div id="exec-ribbon" class="ribbon hidden">
+    <button style="background: #dc3545; color: white; border: none;" onclick="stopExecution()">
+      <span class="material-symbols-outlined">close</span> Exit Execution
+    </button>
+  </div>
+
+  <div id="editor-view"><div id="monaco-container"></div></div>
+  <div id="execution-view" class="hidden"><div id="terminal-container"></div></div>
+
+  <div class="status-bar">
+    <div class="status-left">
+      <span class="material-symbols-outlined">code</span>
+      <span>ICTL 1.1 (Studio v1.0)</span>
+      <div style="width: 15px;"></div>
+      <span id="stats-count">Lines: 1, Chars: 0</span>
+    </div>
+    
+    <div class="status-right">
+      <span class="clickable" onclick="editor.focus(); editor.trigger('keyboard', 'editor.action.changeTabDisplaySize')">
+        Spaces: 4
+      </span>
+      
+      <div style="width: 10px;"></div>
+      
+      <span id="cursor-pos" class="clickable" onclick="editor.focus(); editor.trigger('keyboard', 'editor.action.gotoLine')">
+        Ln 1, Col 1
+      </span>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js"></script>
+  <script src="/static/js/monaco-ictl.js"></script>
+</body>
+</html>

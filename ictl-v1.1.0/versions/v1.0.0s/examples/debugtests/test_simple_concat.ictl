@@ -1,6 +1,0 @@
-Program.Main {
-    Variables.New(X)
-    Variables.X = "World"
-    
-    Terminal.Echo("Hello, " + Variables.X)
-}

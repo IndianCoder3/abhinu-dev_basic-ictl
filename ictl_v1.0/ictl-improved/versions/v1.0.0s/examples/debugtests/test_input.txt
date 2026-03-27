@@ -1,6 +1,0 @@
-Alice
-Blue
-Pizza
-10 + 5
-Hello
-Hello
