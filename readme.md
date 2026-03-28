@@ -1,5 +1,5 @@
 ![Python](https://img.shields.io/badge/Python-3.7+-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
+[![License](https://img.shields.io/badge/License-GPL%20v3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![Status](https://img.shields.io/badge/status-in%20development-orange)
 ![GitHub last commit](https://img.shields.io/github/last-commit/indiancoder3/abhinu-dev_basic-ictl)
 ![GitHub issues](https://img.shields.io/github/issues/indiancoder3/abhinu-dev_basic-ictl)
@@ -32,7 +32,8 @@
 - [About](#about)
 - [Features](#features)
 - [Quick Start](#quick-start)
-- [Installation](#installation)
+- [Web Editor](#web-editor)
+- [Installation onto System](#installation)
 - [Language Basics](#language-basics)
 - [Command Reference](#command-reference)
 - [VS Code Extension](#vs-code-extension)
@@ -128,9 +129,19 @@ This drops you into an interactive shell where you can execute ICTL commands lin
 
 ---
 
+## Web Editor
+
+I also made a web editor interface for testing out ICTL without installing it! Simply visit [this link](github.com/indiancoder3/abhinu-dev_basic-ictl/editor). If the link does not work, try https://basic-ictl-web-studio.onrender.com/
+
+I recommend using the web interface to avoid installation, as there are updates often.
+
+It is based upen Monace, letting me build a autocomplete and syntax hilighting system, and also a ribbon, and a status bar at the bottom.
+
+---
+
 ## Installation
 
-Choose one of the two installation paths below:
+Choose one of the two installation paths below, if you want to install it:
 
 ### 🚀 Path 1: Recommended - Use Pre-built Release
 
@@ -195,7 +206,7 @@ cd abhinu-dev_basic-ictl
 2. **Navigate to ICTL Directory**
 
 ```bash
-cd ictl-v1.1.0 # This may differ from the latest version, use that.
+cd code
 ```
 
 3. **Run Programs**
@@ -442,10 +453,6 @@ Program.Loop(10) {
 | `Time.Wait(<duration in sec>)` | Wait for seconds | `Time.Wait(2.5)` |
 | `Time.Current(<format>)` | Fetch current time in a format |   `Variables.Time = Time.Current("hh:mm tt")`
 
-For the complete command reference, see [ictl/cmd-refer/COMMAND_REFERENCE.txt](ictl/cmd-refer/COMMAND_REFERENCE.txt).
-
-> The command reference file may be outdated, please refer here instead.
-
 ---
 
 ## VS Code Extension
@@ -459,9 +466,9 @@ The ICTL language is supported in VS Code with syntax highlighting, code snippet
 
 Or:
 
-1. Download the extension VSIX file from the [ictl_extras-vscode](ictl_extras-vscode/) directory or better, use the one from the latest release.
+1. Download the extension VSIX file the latest release.
 2. In VS Code, press `Ctrl+Shift+P` and run `Extensions: Install from VSIX...`
-3. Select the downloaded VSIX file
+3. Select the downloaded VSIX file.
 
 ### Features
 
@@ -516,30 +523,11 @@ git clone https://github.com/indiancoder3/abhinu-dev_basic-ictl.git
 cd abhinu-dev_basic-ictl
 
 # Navigate to ICTL directory
-cd ictl-v1.1.0 # May differ
+cd code
 
 # Run the interpreter
 python main.py           # Interactive mode
 python main.py test.ictl # Execute a file
-```
-
-### Project Structure
-
-```
-ictl-v1.1.0/
-├── main.py              # Entry point
-├── parser.py            # Lexer & parser
-├── runtime.py           # Execution engine
-├── control.py           # Control flow handling
-├── error_handler.py     # Error reporting
-├── shell.py             # Interactive shell
-├── ictl_builtins/       # Built-in functions
-│   ├── terminal.py      # I/O operations
-│   ├── variables.py     # Variable management
-│   ├── math.py          # Math operations
-│   └── data.py          # Data comparison
-├── examples/            # Example programs
-├── cmd-refer/           # Command reference
 ```
 ---
 
@@ -577,7 +565,7 @@ Contributions are welcome! Whether it's bug fixes, new features, examples, or do
 - Use absolute path or run from the correct directory
 
 **Syntax Error**
-- Check that `Program.Main { ... }` wraps all code
+- Check that `Program.Main { ... }` wraps all code (not mandatory, but recommended since v1.1.0, older versions require it)
 - Verify variable names don't have spaces
 - Ensure proper bracket matching
 
@@ -604,56 +592,18 @@ Currently, there is no GUI or something, but I am trying to implement it! So, An
 
 ## License
 
-This project is licensed under the **MIT License** - a permissive open-source license.
-
-### MIT License Summary
-
-The MIT License allows you to:
-- ✅ Use the code commercially
-- ✅ Modify the code
-- ✅ Distribute the code
-- ✅ Use privately
-- ✅ Sub-license
-
-**With one requirement:**
-- 📝 Include the original copyright notice and license
-
-### Full MIT License Text
-
-```
-MIT License
-
-Copyright (c) 2026 IndianCoder3
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+This project is licensed under the GNU GPL v3 — a copyleft open-source license. Orignally, it was licensed under MIT.
 
 ### For Package Users
 
 If you use ICTL in your project, simply include:
 
 ```
-This project uses Abhinu.Dev Basic ICTL, licensed under the MIT License.
+This project uses Abhinu.Dev Basic ICTL, licensed under the GNU GPL v3 License.
 Copyright (c) 2026 IndianCoder3
 ```
 
-For full license details, visit: https://opensource.org/licenses/MIT
+For full license details, visit: https://www.gnu.org/licenses/
 
 ## Credits
 
@@ -669,7 +619,7 @@ Special thanks to:
 For questions, issues, or suggestions:
 - GitHub: [@indiancoder3](https://github.com/indiancoder3)
 - GitHub Issues: Report bugs and request features
-- Email: mailto:indiancoder3@hotmail.com
+- Email: [indiancoder3@hotmail.com](mailto:indiancoder3@hotmail.com)
 
 ---
 
