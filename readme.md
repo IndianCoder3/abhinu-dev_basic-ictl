@@ -14,7 +14,8 @@
     <a href="https://www.python.org">Python (for building the language interpreter)</a> |
     <a href="https://indiancoder3.github.io">IndianCoder3</a> |
     <a href="#command-reference">Command Reference</a> |
-    <a href="#building-story">Build Story</a>
+    <a href="#building-story">Build Story</a> |
+    <a href="https://indiancoder3.github.io/abhinu-dev_basic-ictl/editor">Web Editor</a>
 </p>
 
 > [!CAUTION]
@@ -42,6 +43,8 @@
 - [Building Story (Lore)](#building-story)
 - [Contributing](#contributing)
 - [License](#license)
+
+See the [History](HISTORY.md) for full project changes.
 
 ---
 
