@@ -131,7 +131,7 @@ This drops you into an interactive shell where you can execute ICTL commands lin
 
 ## Web Editor
 
-I also made a web editor interface for testing out ICTL without installing it! Simply visit [this link](github.com/indiancoder3/abhinu-dev_basic-ictl/editor). If the link does not work, try https://basic-ictl-web-studio.onrender.com/
+I also made a web editor interface for testing out ICTL without installing it! Simply visit [this link](https://indiancoder3.github.io/abhinu-dev_basic-ictl/editor). If the link does not work, try https://basic-ictl-web-studio.onrender.com/
 
 I recommend using the web interface to avoid installation, as there are updates often.
 
