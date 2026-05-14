@@ -1,0 +1,132 @@
+{
+  "name": "ictl-language",
+  "displayName": "Abhinu.Dev Basic ICTL Language Support",
+  "description": "Language support for Abhinu.Dev Basic ICTL with IntelliSense, autocomplete, and integrated execution",
+  "version": "1.2.1",
+  "publisher": "IndianCoder3",
+  "icon": "ictl_icon.ico",
+
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+
+  "categories": [
+    "Programming Languages",
+    "Debuggers"
+  ],
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IndianCoder3/abhinu-dev_basic-ictl"
+  },
+
+  "activationEvents": [
+    "onLanguage:ictl"
+  ],
+
+  "main": "./extension.js",
+
+  "contributes": {
+    "languages": [
+      {
+        "id": "ictl",
+        "aliases": ["ICTL", "ictl"],
+        "extensions": [".ictl"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+
+    "grammars": [
+      {
+        "language": "ictl",
+        "scopeName": "source.ictl",
+        "path": "./syntaxes/ictl.tmLanguage.json"
+      }
+    ],
+
+    "commands": [
+      {
+        "command": "ictl.run",
+        "title": "Run ICTL File",
+        "description": "Run the current ICTL file",
+        "category": "ICTL",
+        "icon": "$(play)"
+      },
+      {
+        "command": "ictl.configurePath",
+        "title": "Configure ICTL Installation Path",
+        "description": "Set the path to your ICTL installation directory",
+        "category": "ICTL",
+        "icon": "$(settings-gear)"
+      }
+    ],
+
+    "keybindings": [
+      {
+        "command": "ictl.run",
+        "key": "F5",
+        "when": "editorLangId == ictl"
+      },
+      {
+        "command": "ictl.run",
+        "key": "ctrl+shift+f5",
+        "when": "editorLangId == ictl"
+      }
+    ],
+
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "ictl.run",
+          "group": "navigation",
+          "when": "editorLangId == ictl"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "ictl.run",
+          "when": "editorLangId == ictl",
+          "group": "1_modification"
+        },
+        {
+          "command": "ictl.configurePath",
+          "when": "editorLangId == ictl",
+          "group": "1_modification"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "ictl.run",
+          "when": "editorLangId == ictl"
+        },
+        {
+          "command": "ictl.configurePath"
+        }
+      ]
+    },
+
+    "configuration": {
+      "title": "ICTL",
+      "properties": {
+        "ictl.installationPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to ICTL installation directory",
+          "scope": "application"
+        },
+        "ictl.showRunButton": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show run button in editor title",
+          "scope": "window"
+        },
+        "ictl.terminalWidth": {
+          "type": "number",
+          "default": 80,
+          "description": "Terminal output width for ICTL programs",
+          "scope": "window"
+        }
+      }
+    }
+  }
+}

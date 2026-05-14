@@ -1,0 +1,6 @@
+flask
+flask-sock
+sympy
+numpy
+pyqt5
+turtle

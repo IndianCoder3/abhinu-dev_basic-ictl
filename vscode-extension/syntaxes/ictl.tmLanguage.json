@@ -1,0 +1,58 @@
+{
+  "scopeName": "source.ictl",
+  "name": "ICTL",
+
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#keywords" },
+    { "include": "#variables" }
+  ],
+
+  "repository": {
+
+    "comments": {
+      "patterns": [
+        { "name": "comment.line.hash.ictl", "match": "#.*$" },
+        { "name": "comment.line.double-slash.ictl", "match": "//.*$" }
+      ]
+    },
+
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.ictl",
+          "begin": "\"",
+          "end": "\""
+        }
+      ]
+    },
+
+    "numbers": {
+      "patterns": [
+        { "name": "constant.numeric.float.ictl", "match": "\\b-?[0-9]+\\.[0-9]+\\b" },
+        { "name": "constant.numeric.integer.ictl", "match": "\\b-?[0-9]+\\b" }
+      ]
+    },
+
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.ictl",
+          "match": "\\b(Program|Terminal|Math|Variables|Data|Time|Lists|Kachua|GUI|True|False)\\b"
+        }
+      ]
+    },
+
+    "variables": {
+      "patterns": [
+        {
+          "name": "variable.other.ictl",
+          "match": "\\bVariables\\.[A-Za-z_][A-Za-z0-9_]*\\b"
+        }
+      ]
+    }
+
+  }
+}

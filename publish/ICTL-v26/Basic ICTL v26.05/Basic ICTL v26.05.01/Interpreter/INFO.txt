@@ -1,0 +1,23 @@
+        ╔═══════════════════════════════════════════════════════╗
+        ║                Abhinu.Dev Basic ICTL                  ║
+        ║  v26.05.01 (v1.2.0) - Small Sight of Ideas Update     ║
+        ║            © 2026 - Present IndianCoder3              ║
+        ╚═══════════════════════════════════════════════════════╝
+
+Thank You for choosing Abhinu.Dev Basic ICTL!
+
+You are proceeding with the installation of ICTL v26.05.01 Interpreter on your System. The genuine copies can be downloaded from 
+https://github.com/IndianCoder3/abhinu-dev_basic-ictl
+
+Please note some areas may signal v26.04.01, that is normal, as the release was delayed.
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3 of the License.
+
+This program (Abhinu.Dev Basic ICTL Language) is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+See the GNU General Public License for more details. You should have
+received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+You can also install the VS Code Extension, or other add-ons. These packages are not provided with this software. To install them, you may download them seprately.
+
+- IndianCoder3 2026-Present

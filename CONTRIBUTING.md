@@ -36,18 +36,8 @@ Examples:
 
 ---
 
-### 3. Make Changes
+### 3. Test it
 
-* Code improvements go in `code/`
-* Web IDE improvements too go to `code/`. If you have finalised to use a build, copy it over to `ICTL-StudioOnline_Release`
-* Documentation goes in `README.md`, `HISTORY.md`, or new Markdown files
-* Examples go in `code/examples/`
-
-**Tips:**
-
-* Follow the existing code style (indentation, naming)
-* Include comments for clarity
-* Test your changes locally before committing
 
 ---
 
@@ -57,7 +47,7 @@ Write **clear, descriptive commit messages**:
 
 ```bash
 git add .
-git commit -m "Add Math.Sqrt command with example"
+git commit -m "Add GUI.Hide command with example"
 ```
 
 ---
@@ -81,16 +71,17 @@ Then open a Pull Request on the main repo. Include:
 ## Areas Where You Can Help
 
 * **Core Language**: Add commands, fix bugs, improve parsing
+* **Local Editor Studio**: Help develop a offline, local editor.
 * **IDE/Studio**: Improve the web editor, add features, polish UI, polish VS Code Extension
 * **Examples**: More sample programs for learning purposes
 * **Documentation**: Correct typos, update commands, write tutorials, and add comments to code for clarity
 * **VS Code Extension**: Snippets, language support, or bug fixes
+* **GUI and Kachua**: These libraries are very new, and need a lot of help.
 
 ---
 
 ## Coding Guidelines
 
-* Use **4 spaces** per indentation level (or use tab with indent-to-space set to 4)
 * Keep variable names clear (`Variables.Counter`, not `X`)
 * Include comments for tricky parts
 * Keep functions and blocks small and readable

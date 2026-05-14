@@ -1,0 +1,494 @@
+<!--
+  == Basic ICTL Studio Online ==
+  templates/index.html
+  Licensed under MIT License (https://opensource.org/licenses/MIT)
+  Source: https://github.com/indiancoder3/abhinu-dev_basic-ictl
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ICTL Studio — Editor</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.19.0/css/xterm.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+  
+  <style>
+    /* Modern UI Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-light: #818cf8;
+      --accent: #ec4899;
+      --bg-light: #f8fafc;
+      --bg-white: #ffffff;
+      --border-light: #e2e8f0;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
+      
+      --bg-dark: #0f172a;
+      --bg-dark-2: #1e293b;
+      --bg-dark-3: #334155;
+      --text-light: #f1f5f9;
+      --border-dark: #334155;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border-light);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .navbar > div:first-child {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: -2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .nav-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-dark);
+    }
+
+    /* ===== RIBBON / TOOLBAR ===== */
+    .ribbon {
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border-light);
+      padding: 10px 24px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    .ribbon-separator {
+      border-left: 1px solid var(--border-light);
+      height: 24px;
+      margin: 0 8px;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1px solid var(--border-light);
+      background: var(--bg-white);
+      color: var(--text-dark);
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    button:hover {
+      background: var(--bg-light);
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .run-btn {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+      color: white !important;
+      border: none !important;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .run-btn:hover {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, #4f46e5 100%) !important;
+      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4) !important;
+      transform: translateY(-2px) !important;
+    }
+
+    .stop-btn {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+      color: white !important;
+      border: none !important;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+
+    .stop-btn:hover {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+      box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4) !important;
+      transform: translateY(-2px) !important;
+    }
+
+    .material-symbols-outlined {
+      font-size: 18px !important;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    /* ===== COLORFUL ICONS (MS Style) ===== */
+    /* File operations - Blue tones */
+    .icon-file-add {
+      background: linear-gradient(135deg, #0078d4 0%, #50e6ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .icon-file-open {
+      background: linear-gradient(135deg, #0078d4 0%, #54aeff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .icon-save {
+      background: linear-gradient(135deg, #107c10 0%, #6bb700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Edit operations - Orange tones */
+    .icon-undo {
+      background: linear-gradient(135deg, #ff8c00 0%, #ffa500 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .icon-redo {
+      background: linear-gradient(135deg, #ff9500 0%, #ffb900 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Run/Stop - Green/Red gradient */
+    .icon-play {
+      background: linear-gradient(135deg, #107c10 0%, #6bb700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .icon-stop {
+      background: linear-gradient(135deg, #d13438 0%, #e81123 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Theme toggle - Purple tones */
+    .icon-theme {
+      background: linear-gradient(135deg, #7b68ee 0%, #9370db 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Status bar icons */
+    .icon-status {
+      background: linear-gradient(90deg, #0078d4 0%, #00b4ef 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Hover effect for colored icons */
+    button:hover .material-symbols-outlined {
+      filter: brightness(1.2) saturate(1.3);
+    }
+
+    button:hover .icon-file-add,
+    button:hover .icon-file-open,
+    button:hover .icon-save,
+    button:hover .icon-undo,
+    button:hover .icon-redo,
+    button:hover .icon-play,
+    button:hover .icon-stop,
+    button:hover .icon-theme,
+    button:hover .icon-status {
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15)) saturate(1.4);
+    }
+
+    /* ===== EDITOR & EXECUTION VIEWS ===== */
+    #editor-view, #execution-view {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #monaco-container {
+      flex: 1;
+      width: 100%;
+      background: var(--bg-white);
+    }
+
+    #terminal-container {
+      flex: 1;
+      background: #000000;
+      color: #00ff00;
+      padding: 12px;
+      min-height: 200px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      overflow: hidden;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* ===== STATUS BAR ===== */
+    .status-bar {
+      height: 28px;
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      font-size: 12px;
+      z-index: 100;
+      box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .status-left, .status-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .status-bar .material-symbols-outlined {
+      font-size: 15px !important;
+      opacity: 0.9;
+    }
+
+    .clickable {
+      cursor: pointer;
+      padding: 2px 8px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+      font-weight: 500;
+    }
+
+    .clickable:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ===== DARK THEME ===== */
+    body.dark-theme {
+      background: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    .dark-theme .navbar,
+    .dark-theme .ribbon {
+      background: var(--bg-dark-2);
+      border-color: var(--border-dark);
+    }
+
+    .dark-theme .logo {
+      background: linear-gradient(135deg, var(--primary-light) 0%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .dark-theme .ribbon-separator {
+      border-color: var(--border-dark);
+    }
+
+    .dark-theme button {
+      background: var(--bg-dark-3);
+      color: var(--text-light);
+      border-color: var(--border-dark);
+    }
+
+    .dark-theme button:hover {
+      background: #475569;
+      border-color: #64748b;
+    }
+
+    .dark-theme #monaco-container {
+      background: var(--bg-dark-2);
+    }
+
+    .dark-theme .status-bar {
+      background: linear-gradient(90deg, #4338ca 0%, #6366f1 100%);
+      border-top: 1px solid var(--border-dark);
+    }
+
+    .dark-theme .nav-links a {
+      color: var(--primary-light);
+    }
+
+    .dark-theme .nav-links a:hover {
+      color: #a5b4fc;
+    }
+
+    /* Dark theme icon adjustments */
+    .dark-theme .icon-file-add,
+    .dark-theme .icon-file-open,
+    .dark-theme .icon-save,
+    .dark-theme .icon-undo,
+    .dark-theme .icon-redo,
+    .dark-theme .icon-play,
+    .dark-theme .icon-stop,
+    .dark-theme .icon-theme,
+    .dark-theme .icon-status {
+      filter: brightness(1.1) saturate(1.2);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0 16px;
+        height: 56px;
+      }
+
+      .ribbon {
+        padding: 8px 16px;
+      }
+
+      .logo-subtitle {
+        display: none;
+      }
+
+      .nav-links {
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div>
+      <img src="https://raw.githubusercontent.com/IndianCoder3/abhinu-dev_basic-ictl/refs/heads/main/logo-graphics/ictl_icon.ico" width="32" height="32" alt="Logo" style="border-radius: 6px;">
+      <div>
+        <div class="logo">ICTL Studio</div>
+        <div class="logo-subtitle">Everyone has the right to code</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="https://github.com/IndianCoder3/abhinu-dev_basic-ictl" target="_blank">
+        <span class="material-symbols-outlined icon-file-open" style="font-size: 16px; vertical-align: middle;">code</span>
+        GitHub Repo
+      </a>
+    </div>
+  </div>
+
+  <div id="edit-ribbon" class="ribbon">
+    <button onclick="newFile()"><span class="material-symbols-outlined icon-file-add">note_add</span>New</button>
+    <button onclick="openFile()"><span class="material-symbols-outlined icon-file-open">folder_open</span>Open</button>
+    <button onclick="saveFile()"><span class="material-symbols-outlined icon-save">save</span>Save</button>
+    <div class="ribbon-separator"></div>
+    <button onclick="editor.trigger('keyboard', 'undo', 'undo')"><span class="material-symbols-outlined icon-undo">undo</span>Undo</button>
+    <button onclick="editor.trigger('keyboard', 'redo', 'redo')"><span class="material-symbols-outlined icon-redo">redo</span>Redo</button>
+    <div style="flex: 1;"></div>
+    <button id="runBtn" class="run-btn" onclick="startExecution()"><span class="material-symbols-outlined icon-play">play_arrow</span>Run</button>
+    <button id="themeBtn" onclick="toggleTheme()"><span class="material-symbols-outlined icon-theme">dark_mode</span><span id="themeText">Dark</span></button>
+  </div>
+
+  <div id="exec-ribbon" class="ribbon hidden">
+    <button class="stop-btn" onclick="stopExecution()">
+      <span class="material-symbols-outlined icon-stop">stop_circle</span> Stop Execution
+    </button>
+    <div style="flex: 1;"></div>
+    <span style="font-size: 12px; color: var(--text-muted);">Program is running...</span>
+  </div>
+
+
+  <div id="editor-view">
+    <div id="monaco-container"></div>
+  </div>
+
+  <div id="execution-view" class="hidden">
+    <div id="terminal-container"></div>
+  </div>
+
+  <div class="status-bar">
+    <div class="status-left">
+      <span class="material-symbols-outlined icon-status">code</span>
+      <span>ICTL Studio v1.0</span>
+      <span style="opacity: 0.7;">•</span>
+      <span id="stats-count">Lines: 1 • Chars: 0</span>
+    </div>
+    
+    <div class="status-right">
+      <span class="clickable" onclick="editor.focus(); editor.trigger('keyboard', 'editor.action.changeTabDisplaySize')">
+        <span class="material-symbols-outlined icon-file-open" style="font-size: 13px; vertical-align: middle;">spaces</span>
+        Spaces: 4
+      </span>
+      
+      <span id="cursor-pos" class="clickable" onclick="editor.focus(); editor.trigger('keyboard', 'editor.action.gotoLine')">
+        <span class="material-symbols-outlined icon-undo" style="font-size: 13px; vertical-align: middle;">current_location</span>
+        Ln 1, Col 1
+      </span>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/xterm@4.19.0/lib/xterm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js"></script>
+  <script src="/static/js/monaco-ictl.js"></script>
+</body>
+</html>

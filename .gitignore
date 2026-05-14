@@ -1,7 +1,18 @@
 # __pycache__ Files and .pyc
 /code/__pycache__/
+/code_beta/__pycache__/
 /code/ictl_builtins/__pycache__/
+/code_beta/ictl_builtins/__pycache__/
 *.pyc
 
-# Nuitka Build Files
+# Build Files
 /code/main.build/
+/code_beta/main.build/
+/code/build/
+/code_beta/build/
+
+# C compile files
+/code_beta/*.c
+/code_beta/handlers/*.c
+/code_beta/ictl_builtins/*.c
+# No /code/ as builds are done within /code_beta/

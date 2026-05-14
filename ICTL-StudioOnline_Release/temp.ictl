@@ -1,3 +1,0 @@
-Program.Main {
-	Terminal.Echo("Hello ICTL")
-}
