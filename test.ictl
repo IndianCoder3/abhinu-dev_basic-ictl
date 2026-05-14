@@ -1,0 +1,11 @@
+Program.If(True) {
+    Program.If(False) {
+        Terminal.Echo("inner if")
+    }
+    Program.Else {
+        Terminal.Echo("inner else")
+    }
+}
+Program.Else {
+    Terminal.Echo("this should NOT print but it will")
+}

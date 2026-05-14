@@ -40,18 +40,22 @@ def run_block(block):
     header = _normalize_command(header)
 
     if header == "Program.Main":
+        # Reset flag when starting the main program
+        _last_if_executed = True
         for item in lines:
             run_item(item)
         return
 
     if header.startswith("Program.Kheer"):
-        # Define a custom function (Kheer)
-        # Format: Program.Kheer(function_name) { ... }
+        # This line was missing! It finds the name inside the ( )
         kheer_name = header[header.find("(")+1 : header.rfind(")")]
+        
         _kheers[kheer_name] = lines
+        _last_if_executed = True # Reset flag
         return
 
     if header.startswith("Program.Loop"):
+        _last_if_executed = True # Reset flag
         count = int(extract_args(header)[0])
         for _ in range(count):
             try:
@@ -64,6 +68,7 @@ def run_block(block):
         return
 
     if header == "Program.ForeverLoop":
+        _last_if_executed = True # Reset flag
         while True:
             try:
                 for item in lines:
@@ -77,6 +82,8 @@ def run_block(block):
     if header.startswith("Program.If"):
         condition = header[header.find("(")+1 : header.rfind(")")]
         result = eval_expr(condition)
+        
+        # This tells the next Else block if it should run or skip
         _last_if_executed = result
 
         if result:
@@ -85,11 +92,13 @@ def run_block(block):
         return
 
     if header == "Program.Else":
-        # Program.Else only executes if the previous Program.If condition was False
+        # Only run if the LAST If block was False
         if not _last_if_executed:
             for item in lines:
                 run_item(item)
-        _last_if_executed = False  # Reset after Else block
+        
+        # Set to True after running so a second Else cannot trigger
+        _last_if_executed = True 
         return
 
     raise RuntimeErrorICTL(f"Unknown block: '{header}'")
