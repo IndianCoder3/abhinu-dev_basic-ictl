@@ -3,6 +3,7 @@
 ![Status](https://img.shields.io/badge/status-in%20development-orange)
 ![GitHub last commit](https://img.shields.io/github/last-commit/indiancoder3/abhinu-dev_basic-ictl)
 ![GitHub issues](https://img.shields.io/github/issues/indiancoder3/abhinu-dev_basic-ictl)
+[![RepoRanker](https://reporanker.com/badge/IndianCoder3/abhinu-dev_basic-ictl)](https://reporanker.com/repos/IndianCoder3/abhinu-dev_basic-ictl)
 
 <h1 align="center" style="font-family: Comic Sans Ms; color:lightyellow"><b><u>Abhinu.Dev Basic ICTL</u></b></h1>
 <p align="center">Everyone Can Code!</p>
